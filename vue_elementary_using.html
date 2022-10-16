@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>vue2.x版本的写法</title>
+		<!-- 导入vue的包 -->
+		<script src="js/v2.6.10/vue.js" type="text/javascript" charset="utf-8"></script>
+		
+		<style>
+			/* 网络环境较差,浏览器F12配置成低速3g时可以模拟,页面先展示为{{ msg }},请求到数据再重新绑定,避免此类使用v-cloak */
+			[v-cloak]{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<!-- MVC:后端思想，model、controller、view三层。
+		MVVM:前端视图层的分层开发思想，每个页面分成M、V、VM，
+				M保存每个页面中单独的数据，
+				V就是每个页面的HTML结构。
+				VM它是一个调度者，分隔了M和V,VM提供了数据的双向绑定，
+				渲染HTML的数据获取&HTML页面修改了数据要提交都是VM来做。 -->
+		
+		<!-- 将来new的Vue实例，会控制这个元素中的所有内容  mvvm中的v view -->
+		<div id="app">
+			<!-- 使用v-cloak 能够解决插值表达式闪烁的问题 -->
+			<p v-cloak>{{ msg }}</p>
+			
+			<!-- <p id = 'content'></p> -->
+			
+			<!-- 默认v-text没有插值的闪烁问题 -->
+			<h4 v-text = "msg"></h4>
+			
+			<!-- v-text会覆盖元素中原来的内容，但是插值表达式只会替换自己的这个占位符，不会把整个元素的内容清空 -->
+			<p v-cloak>+++++++++{{ msg }}+++++++++</p>
+			<h4 v-text = "msg">+++++++++++++++++++++</h4>
+			
+			
+			<!-- v-html可以直接解析html渲染，v-html 和 v-text一样会覆盖元素原来的内容 -->
+			<div v-html= "msg_html">
+				++++++++++
+			</div>
+			
+			<!-- v-bind是vue中，提供的用于绑定属性的指令 -->
+			<input type = "button" value="提交" v-bind:title = "titleValue + ',试试吧' " >
+			<!-- v-bind可以简写为： -->
+			<input type = "button" value="提交" :title = "titleValue  + ',试试吧(缩写方式)' ">
+			
+			<!-- vue提供了v-on事件绑定机制 -->
+			<input type = "button" value="提交"  v-on:click = "clickToSubmit">
+			<input type = "button" value="提交"  v-on:mouseover = "mouseoverIt">
+			
+			
+			<!-- title属性给按钮提示，id利用原生jquery绑定事件 -->
+			<input type = "button" value="提交" title = "titleValue" id = "btn">
+		</div>
+		
+		<script>
+			//创建一个vue的实例  mvvm中的vm,data为mvvn的m--model；
+			//当我们导入包之后，在浏览器的内存中，就多了一个vue构造函数
+			var vm = new Vue({
+				el:'#app',    //表示当前我们的new的这个vue实例，要控制页面上的哪个区域
+				data:{         //data属性中，存放的是el中要用到的数据
+					msg:'vue动态数据绑定', //通过vue提供的指令，很方便的就能把数据渲染到页面中，程序猿不再手动操作dom元素了
+					                     //前端的vue之类的框架，不提倡我们去手动操作dom元素了。
+					msg_html:'<h1>我是一个html,你可以解析我吗<h1>'	,
+					
+					titleValue:'点击提交'
+				},
+				//methods属性中定义了当前vue实例所有可用的方法
+			    methods: {
+			    	clickToSubmit:function(){
+						alert('执行方法--vue的v-on绑定');
+					},
+					mouseoverIt:function(){
+						alert('鼠标放上了--vue的v-on绑定');
+					}
+			    },
+			})
+			
+			//原生jquery就需要操作dom对象
+			// $('#content').text(data.msg);
+			document.getElementById('btn').onclick = function(){
+				alert('点击了提交按钮--原生jquery方法');
+			}
+		</script>
+	</body>
+</html>
