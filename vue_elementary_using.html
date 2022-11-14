@@ -43,17 +43,19 @@
 			</div>
 			
 			<!-- v-bind是vue中，提供的用于绑定属性的指令 -->
-			<input type = "button" value="提交" v-bind:title = "titleValue + ',试试吧' " >
+			<input type = "button" value="鼠标悬停实现" v-bind:title = "titleValue + ',试试吧' " >
 			<!-- v-bind可以简写为： -->
-			<input type = "button" value="提交" :title = "titleValue  + ',试试吧(缩写方式)' ">
+			<input type = "button" value="鼠标悬停属性缩写方式实现" :title = "titleValue  + ',试试吧(缩写方式)' ">
 			
 			<!-- vue提供了v-on事件绑定机制 -->
-			<input type = "button" value="提交"  v-on:click = "clickToSubmit">
-			<input type = "button" value="提交"  v-on:mouseover = "mouseoverIt">
+			<input type = "button" value="绑定提交事件"  v-on:click = "clickToSubmit">
+			<input type = "button" value="绑定鼠标悬停事件"  v-on:mouseover = "mouseoverIt">
+			<!-- v-on事件可以缩写为@ -->
+			<input type = "button" value="v-on缩写@的提交"  @click = "clickToSubmit">
 			
 			
 			<!-- title属性给按钮提示，id利用原生jquery绑定事件 -->
-			<input type = "button" value="提交" title = "titleValue" id = "btn">
+			<input type = "button" value="原生jquery提交" title = "titleValue" id = "btn">
 		</div>
 		
 		<script>
@@ -66,7 +68,7 @@
 					                     //前端的vue之类的框架，不提倡我们去手动操作dom元素了。
 					msg_html:'<h1>我是一个html,你可以解析我吗<h1>'	,
 					
-					titleValue:'点击提交'
+					titleValue:'v-bind悬停属性'
 				},
 				//methods属性中定义了当前vue实例所有可用的方法
 			    methods: {
