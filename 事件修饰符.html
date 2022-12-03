@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>事件修饰符</title>
+		<!-- 导入vue的包 -->
+		<script src="js/v2.6.10/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+
+			.inner{
+				height: 150px;
+				background-color: darkcyan;
+			}
+			.outer{
+				padding: 40px;
+				background-color: red;
+			}
+
+		</style>
+	</head>
+	<body>
+		
+		<div id = "app">
+			    <!-- .prevent 阻止默认事件，避免href的跳转事件 -->
+			    <a href="http://www.baidu.com" @click.prevent = "linkClick">有问题，先百度一下</a>
+				
+				<br />
+				
+				<!-- .once事件只触发一次，仅阻止一次，第二次就会跳转链接 -->
+				<a href="http://www.baidu.com" @click.prevent.once = "linkClick">有问题，先百度一下</a>
+				
+				<br />
+				
+				<div class="inner" @click = "divHandler">
+					<!-- .stop属性阻止冒泡，否则点击按钮，会触发所在的div的点击事件 -->
+					<input type="button" value="戳戳戳" @click.stop = "btnHandler"/>
+				</div>	
+			
+			    <br />
+			
+				<!-- .capture事件捕获模式，点击按钮，先外层div捕获 -->
+				<div class="inner" @click.capture = "divHandler">
+					<input type="button" value="戳戳戳" @click = "btnHandler"/>
+				</div>	
+				
+				<br />
+				
+				<!-- .self实现只有点击当前元素的时候才出发事件处理函数 -->
+				<div class="inner" @click.self = "divHandler">
+					<input type="button" value="戳戳戳" @click = "btnHandler"/>
+				</div>	
+				
+				<br />
+				
+				<!-- .stop阻止冒泡，不管多少层，self只阻止自己这一层不受下层的冒泡，但是不能阻止继续冒泡到上上层 -->
+				<div class="outer" @click = "outerHandler">
+					<div class="inner" @click = "divHandler">
+						<input type="button" value="戳戳戳" @click.stop = "btnHandler"/>
+					</div>	
+				</div>
+				<br />
+				<div class="outer" @click = "outerHandler">
+					<div class="inner" @click.self = "divHandler">
+						<input type="button" value="戳戳戳" @click = "btnHandler"/>
+					</div>	
+				</div>
+		</div>
+
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					msg: '猥琐发育，别浪~'
+				},
+				methods: {
+					divHandler(){
+						console.log("(内层)div click handler");
+					},
+					btnHandler(){
+						console.log("(最内层按钮)btn clck handler");
+					},
+					linkClick(){
+						console.log("点击了跳转链接的事件");
+					},
+					outerHandler(){
+						console.log("(最外层)外层div点击事件");
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
