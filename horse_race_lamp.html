@@ -12,47 +12,63 @@
 	<body>
 		
 		<div id = "app">
-			<input type = "button" value = "浪起来" @click = 'horse1'/>
-			<input type = "button" value = "浪起来" @click = 'horse2'/>
-			<input type = "button" value = "低调"/>			
-			<h4>{{msg}}</h4>			
+			<input type = "button" value = "浪起来_1" @click = 'horse_race_1'/>
+			<input type = "button" value = "浪起来_2" @click = 'horse_race_2'/>
+			<input type = "button" value = "浪起来_3" @click = 'horse_race_3'/>
+			<input type = "button" value = "浪起来_4" @click = 'horse_race_4'/>
+			<input type = "button" value = "低调" @click = 'stop_horse_race'/>			
+			<h4>{{ msg }}</h4>			
 		</div>
 
 		<script>
 			var vm = new Vue({
 				el: '#app',
 				data: {
-					msg:'猥琐发育，别浪~'
+					msg: '猥琐发育，别浪~',
+					intervalID: null
 				},
 				methods: {
-					horse1:function(){
+					horse_race_1:function(){
 						alert("方法的两种写法之一")
 					},
 					//1.在vm实例中，如果要获取data上的数据或者想要调用methods中的方法，必须通过this.数据属性名
 					     //或this.方法名来进行访问,这里的this就表示我们new出来的vm实例对象
 					//2.vm实例，会监听自己身上data中所有数据的改变，只要数据一发生变化，就会自动把最新的数据，从data上
 					    //同步到页面中去,好处:程序员只需要关心数据,不需要考虑如何重新渲染dom页面.
-					horse2(){
+					horse_race_2(){
 						var start = this.msg.substring(0,1)
-						var end = this.nsg.substring(1)
+						var end = this.msg.substring(1)
 						this.msg = end + start
 					},
 					
-					horse3(){
+					horse_race_3(){
+						//避免已开启一个定时器后，反复点击，开启新的定时器。
+						if(this.intervalID != null){
+							return;
+						}
 						_this = this
-						setInterval(function(){
+						this.intervalID = setInterval(function(){
 							var start = _this.msg.substring(0,1)
-							var end = _this.nsg.substring(1)
+							var end = _this.msg.substring(1)
 							_this.msg = end + start
 						},400)
-					}
+					},
 					
-					horese4(){
-						setInterval(() => {
-							var start = _this.msg.substring(0,1)
-							var end = _this.nsg.substring(1)
-							_this.msg = end + start
+					horse_race_4(){
+						if(this.intervalID != null){
+							return;
+						}
+						this.intervalID = setInterval(() => {
+							var start = this.msg.substring(0,1)
+							var end = this.msg.substring(1)
+							this.msg = end + start
 						},400)
+					},
+					
+					stop_horse_race(){
+						clearInterval(this.intervalID)
+						//不重新set成null，停止后，上面的if判断无法再次开启
+						this.intervalID = null;
 					}
 					
 				}
