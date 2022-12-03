@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>v-mode实现表单元素数据双向绑定</title>
+		<!-- 导入vue的包 -->
+		<script src="js/v2.6.10/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		
+		<div id = "app">
+			  <input type="text" v-model = "n1"/>
+			  <select v-model = "opt">
+				  <option value="+">+</option>
+				  <option value="-">-</option>
+				  <option value="*">*</option>
+				  <option value="/">/</option>
+			  </select>
+			  <input type="text" v-model = "n2"/>
+			  <input type="button" value = "=" @click = "calc" />
+			  <input type="text" v-model = "res"/>
+		</div>
+
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					n1:0,
+					n2:0,
+					res:0,
+					opt:'*'
+				},
+				methods: {
+					calc(){
+						switch(this.opt){
+							case '+':
+							    this.res = parseInt(this.n1) + parseInt(this.n2);
+								break;
+							case '-':
+							    this.res = parseInt(this.n1) - parseInt(this.n2);
+								break;
+							case '*':
+							    this.res = parseInt(this.n1) * parseInt(this.n2);
+								break;
+							case '/':
+							    this.res = parseInt(this.n1)/parseInt(this.n2);
+								break;			
+						}
+						
+						//另外一个投机取巧的办法
+						//var codeStr = 'pareInt(this.n1)' + this.opt + 'parseInt(this.n2)'
+						//this.res = eval(codeStr)
+						
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
