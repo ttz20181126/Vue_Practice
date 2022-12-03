@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>v-mode实现表单元素数据双向绑定</title>
+		<!-- 导入vue的包 -->
+		<script src="js/v2.6.10/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		
+		<div id = "app">
+			   <h4> {{ msg }}</h4>
+			   
+			   <!-- 修改文本框的值，msg没改变
+				v-bind只能实现数据的单向绑定，从M自动绑定到V，无法实现数据的双向绑定 -->
+			   <input type="text" v-bind:value = "msg" style="width: 100%;"/>
+			   
+			   <!-- 修改文本框的值，上面h4的值跟着变化
+			   使用v-model实现数据表单元素和Model中数据的双向数据绑定
+				v-model只能运用在表单元素中，input(radio,text,address,email...) select checkbox textarea-->
+			   <input type="text" v-model = "msg" style="width: 100%;"/>
+		</div>
+
+		<script>
+			// 浏览器F12的控制台,可以输入window.vm观察vm就是浏览器的一个实例,vm.msg='111’,enter.可以给msg重新赋值，直接页面回变化绑定上去
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					msg: '大家都是好学生，爱敲代码，爱学习，爱思考，简直完美，没瑕疵'
+				},
+				methods: {
+				
+				}
+			})
+		</script>
+	</body>
+</html>
