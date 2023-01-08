@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>vue给元素绑定样式</title>
+		<!-- 导入vue的包 -->
+		<script src="js/v2.6.10/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		<div id = "app">
+			<div>
+				<label>
+					ID:
+					<input type = "text" v-model = "id">
+				</label>
+				<label>
+					Name:
+					<input type = "text" v-model = "name">
+				</label>
+				<input type = "button" value = "添加" @click = "add">
+			</div>
+			
+			<!-- 1.v-bind:key可以简写为 :key
+			2.v-for循环时候，key属性只能使用number或者string，不能直接：key=”item“
+			3.在组件中，使用v-for循环，如果v-for有问题，一定要制定唯一的字符串或者数字类型作为key的值 -->
+			<p v-for = "item in list" :key="item.id">
+				<input type = "checkbox">
+				{{item.id}} ----- {{ item.name}}
+			</p>
+		</div>
+
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					id: '',
+					name: '',
+					list: [
+						{id:1,name:'李斯'},
+						{id:2,name:'韩非'},
+						{id:3,name:'荀子'},
+						{id:4,name:'赵高'},
+						{id:5,name:'秦始皇'},
+					]
+				},
+				methods: {
+					add(){
+						//正常往后添加没有问题
+						//this.list.push({id:this.id,name:this.name})
+						
+						//如多选择id=5的秦始皇，添加的元素插在最前面，前面插一个，依旧选择第五个，会选择以前的id为4的。
+						//解决办法：加key属性
+						this.list.unshift({id:this.id,name:this.name})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>vue给元素绑定样式</title>
+		<!-- 导入vue的包 -->
+		<script src="js/v2.6.10/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		
+		<div id = "app">
+			<!-- 迭代数字从1开始，循环对象属性、对象数组、普通数组，索引都是从0开始 -->
+			<p v-for = "count in 10">{{count}}</p>		
+		</div>
+
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					
+				},
+				methods: {
+				
+				}
+			})
+		</script>
+	</body>
+</html>

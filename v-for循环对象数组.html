@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>vue给元素绑定样式</title>
+		<!-- 导入vue的包 -->
+		<script src="js/v2.6.10/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		
+		<div id = "app">
+			<p v-for = "user in list">id为：{{ user.id }}，名字为：{{user.name}}</p>		
+			<hr />
+			<p v-for = "(user,i) in list">索引值：{{ i }},id为：{{ user.id }}，名字为：{{user.name}}</p>
+		</div>
+
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					list: [
+						{id:1,name:'zs1'},
+						{id:2,name:'zs2'},
+						{id:3,name:'zs3'},
+						{id:4,name:'zs4'},
+					]
+				},
+				methods: {
+				
+				}
+			})
+		</script>
+	</body>
+</html>
