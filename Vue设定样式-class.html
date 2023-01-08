@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>vue给元素绑定样式</title>
+		<!-- 导入vue的包 -->
+		<script src="js/v2.6.10/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			.red{
+				color:red;
+			}
+			.thin{
+				font-weight:200;
+			}
+			.italic{
+				font-style:italic;
+			}
+			.active{
+				letter-spacing:0.5em;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id = "app">
+			  <h1 class = "red thin">这是一个h1标题</h1>
+			  
+			  <!-- 属性，可以用：绑定 -->
+			  <h1 :class = "['red','italic']">这是一个h1标题</h1>
+			  
+			  <!-- :class="red"是绑定名为red的参数，会报错。 -->
+			  <!-- <h1 :class = "red">这是一个h1标题</h1> -->
+			  
+			  <!-- :class = "[red]"也是绑定一个名为red的参数，报错，必须['red'] -->
+			  <!-- <h1 :class = "[red]">这是一个h1标题</h1> -->
+			  
+			  <!-- 在数组中使用三元表达式 -->
+			  <h1 :class = "['red','italic',flag?'active':'']">这是一个h1标题</h1>
+			  <!-- 在数组中使用类代替三元表达式，提高可读性-->
+			  <h1 :class = "['red','italic',{'active':flag}]">这是一个h1标题</h1>
+			  
+			  <!-- 在class使用v-bind绑定对象的时候，对象的属性是类名，可以带引号，可以不带，属性的值是一个标识符 -->
+			  <h1 :class = "{red: true,italic: true,thin: false}">这是一个h1标题</h1>
+			  <h1 :class = "classObj">这是一个h1标题</h1>
+		</div>
+
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					msg: '大家都是好学生，爱敲代码，爱学习，爱思考，简直完美，没瑕疵',
+					flag: true,
+					classObj: {red: true,italic: true,thin: false}
+				},
+				methods: {
+				
+				}
+			})
+		</script>
+	</body>
+</html>
